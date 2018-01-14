@@ -39,7 +39,7 @@ RSpec.feature "StaticPages", type: :feature do
         it 'have link in home page' do
            visit root_path
            
-            expect(page).to have_link('Home', :href => home_path)
+            expect(page).to have_link('Home', :href => root_path)
             expect(page).to have_link('sample app', :href => root_path)
             expect(page).to have_link('About', :href => about_path)
             expect(page).to have_link('Help', :href => help_path)

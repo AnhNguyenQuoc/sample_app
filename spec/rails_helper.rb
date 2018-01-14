@@ -38,4 +38,5 @@
       end
       
       config.include Capybara::DSL
+      config.include ShowMeTheCookies, :type => :feature
     end
