@@ -6,27 +6,24 @@ RSpec.feature "UserLogins", type: :feature do
   
   scenario 'login with invalid information' do
       visit login_path
-      
       expect(page).to have_content("Log in")
       
       fill_in "Email", with: ""
       fill_in "Password", with: ""
-      
       click_button "Log in"
       
       expect(page).to have_css("div.alert-danger")
       
       visit root_path
-      
+  
       expect(page).to_not have_css("div.alert-danger")
   end
   
   scenario 'login with valid information and logout' do
-    visit login_path
+      visit login_path
     
       fill_in "Email", with: user.email
       fill_in "Password", with: user.password
-      
       click_button "Log in"
       
       expect(page).to have_content("#{user.name}")
@@ -46,28 +43,20 @@ RSpec.feature "UserLogins", type: :feature do
   
   scenario "Remember and delete cookies" do
     visit login_path
+    
     fill_in "Email", with: user.email
     fill_in "Password", with: user.password
-    
     find(:css, "#session_remember_me[value='1']").set(true)
-    
     click_button "Log in"
     
     Capybara.reset_session!
-    
     page.reset!
-    
     expect(page).to_not have_link("Log in", :href => login_path)
-    
     page.driver.browser.clear_cookies
     
     Capybara.reset_session!
-    
     page.reset!
-    
     visit root_path
-    
     expect(page).to have_link("Log in", :href => login_path)
-    
   end
 end
