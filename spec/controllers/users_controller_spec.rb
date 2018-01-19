@@ -12,4 +12,16 @@ RSpec.describe UsersController, type: :controller do
            expect(response).to redirect_to('/login')
         end
     end
+    
+    describe "DELETE destroy" do
+        before :each do
+            @user = create(:user)
+        end
+        
+        it "cannot delete without admin" do
+            expect{
+            delete :destroy, params: { id: @user.id }
+            }.to change(User, :count).by(0)
+        end
+    end
 end
